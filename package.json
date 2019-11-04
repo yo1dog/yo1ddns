@@ -1,7 +1,7 @@
 {
   "name": "yo1ddns",
   "version": "1.0.0",
-  "description": "DDNS powered by AWS Lambda and Route 53.",
+  "description": "Dynamic DNS powered by AWS Lambda and Route 53.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yo1dog/yo1ddns.git"

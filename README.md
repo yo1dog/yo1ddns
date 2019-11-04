@@ -1,6 +1,6 @@
 # yo1ddns
 
-DDNS powered by AWS Lambda and Route 53. Easy to deploy. Nearly free to run.
+Dynamic DNS (DDNS) powered by AWS Lambda and Route 53. Easy to deploy. Nearly free to run.
 
 Provides an API powered by API Gateway and 2 small Lambda functions. Updates DNS records in Route 53. Built with AWS CDK/CloudFormation for 1 click deployment and updates.
 
