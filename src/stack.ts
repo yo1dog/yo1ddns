@@ -15,11 +15,17 @@ export class Stack extends cdk.Stack {
   constructor(scope: cdk.Construct, name: string, config: IConfig, props?: cdk.StackProps) {
     super(scope, name, props);
     
+    // get target hosted zone
     const targetHostedZone = route53.HostedZone.fromLookup(this, 'targetHostedZone', {
       domainName: config.targetRoute53ZoneName
     });
     const targetHostedZoneId = targetHostedZone.hostedZoneId.replace(/^\/?hostedzone\//, '');
     
+    // ========================================
+    // Lambda Functions
+    // ========================================
+    
+    // this function handles the updating of Route 53 DNS records
     const updateFunction = new lambda.Function(this, 'updateFunction', {
       description: 'yo1ddns Update Function',
       code: new lambda.AssetCode(pathUtil.join(functionsDir, 'updateFunction')),
@@ -30,6 +36,7 @@ export class Stack extends cdk.Stack {
         ROUTE53_ZONE_ID   : targetHostedZoneId,
         HOSTNAME_WHITELIST: config.targetHostnameWhitelist.join(',')
       },
+      // allow the update lambda to update the target Route 53 zone
       initialPolicy: [new iam.PolicyStatement({
         effect: iam.Effect.ALLOW,
         actions: [
@@ -40,6 +47,7 @@ export class Stack extends cdk.Stack {
       })]
     });
     
+    // this function handles authorizing API requests
     const apiAuthorizerFunction = new lambda.Function(this, 'apiAuthorizerFunction', {
       description: 'yo1ddns API Authorizer Function',
       code: new lambda.AssetCode(pathUtil.join(functionsDir, 'apiAuthorizerFunction')),
@@ -51,6 +59,11 @@ export class Stack extends cdk.Stack {
       }
     });
     
+    
+    // ========================================
+    // API
+    // ========================================
+    
     const api = new apigateway.RestApi(this, 'api', {
       restApiName: 'yo1ddnsAPI',
       description: 'yo1ddns API',
@@ -59,6 +72,7 @@ export class Stack extends cdk.Stack {
         description: 'yo1ddns API Production Stage',
         stageName: 'prod'
       },
+      // create a "Custom Domain" for the API if configured
       domainName: config.apiDomainName? {
         domainName: config.apiDomainName,
         endpointType: apigateway.EndpointType.REGIONAL,
@@ -67,6 +81,7 @@ export class Stack extends cdk.Stack {
       endpointTypes: [apigateway.EndpointType.REGIONAL]
     });
     
+    // create a Route 53 alias record for the API if a "Custom Domain" was created
     if (config.apiDomainName && config.apiDomainNameRoute53ZoneName) {
       new route53.ARecord(this, 'apiRecordSet', {
         zone: route53.HostedZone.fromLookup(this, 'apiHostedZone', {
@@ -77,11 +92,15 @@ export class Stack extends cdk.Stack {
       });
     }
     
+    // return 404 instead of default authentication error for resources that
+    // don't exist
     new apigateway.CfnGatewayResponse(this, 'apiMissingAuthTokenResponse', {
       restApiId: api.restApiId,
       responseType: 'MISSING_AUTHENTICATION_TOKEN',
       statusCode: '404'
     });
+    // return the WWW-Authenticate header when authorization fails to support
+    // HTTP basic auth
     new apigateway.CfnGatewayResponse(this, 'apiUnathorizedResponse', {
       restApiId: api.restApiId,
       responseType: 'UNAUTHORIZED',
@@ -91,6 +110,10 @@ export class Stack extends cdk.Stack {
       }
     });
     
+    // create API authorizer
+    // CDK does not yet support Authorizers so we have to create them through
+    // CloudFormation manually. This means we also have to manually grant the
+    // Authorizer permission to inoke our authorizer Lambda function.
     const apiAuthorizer = new apigateway.CfnAuthorizer(this, 'apiAuthorizer', {
       restApiId: api.restApiId,
       name: 'yo1ddnsAPIAuthorizer',
@@ -105,6 +128,8 @@ export class Stack extends cdk.Stack {
       sourceArn: `arn:aws:execute-api:${this.region}:${this.account}:${api.restApiId}/authorizers/${apiAuthorizer.ref}`
     });
     
+    // GET /
+    // mock endpoint that shows welcome message
     api.root
     .addMethod('GET', new apigateway.MockIntegration({
       requestTemplates: {
@@ -122,6 +147,8 @@ export class Stack extends cdk.Stack {
       methodResponses: [{statusCode: '200'}]
     });
     
+    // GET /nic/update
+    // Lambda proxy endpoint that updates the DNS
     api.root
     .addResource('nic')
     .addResource('update')
@@ -132,11 +159,17 @@ export class Stack extends cdk.Stack {
       }
     });
     
+    
+    // ========================================
+    // Outputs
+    // ========================================
+    
+    // output the URL to the API using the domain name if one was configured
     new cdk.CfnOutput(this, 'apiURLOutput', {
       description: 'URL of the API',
       value: `${
-        api.domainName
-        ? 'https://' + api.domainName.domainName
+        config.apiDomainName && config.apiDomainNameRoute53ZoneName
+        ? 'https://' + config.apiDomainName
         : api.url
       }/nic/update`
     });
