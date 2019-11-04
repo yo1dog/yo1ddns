@@ -1,0 +1,34 @@
+{
+  "name": "yo1ddns",
+  "version": "1.0.0",
+  "description": "DDNS powered by AWS Lambda and Route 53.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yo1dog/yo1ddns.git"
+  },
+  "author": "Mike \"yo1dog\" Moore",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yo1dog/arcade-genius/issues"
+  },
+  "homepage": "https://github.com/yo1dog/arcade-genius#readme",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.34",
+    "@types/node": "^12.12.5",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.4.0",
+    "aws-sdk": "^2.562.0",
+    "eslint": "^6.3.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.15.0",
+    "@aws-cdk/aws-certificatemanager": "^1.15.0",
+    "@aws-cdk/aws-iam": "^1.15.0",
+    "@aws-cdk/aws-lambda": "^1.15.0",
+    "@aws-cdk/aws-route53-targets": "^1.15.0",
+    "@aws-cdk/core": "^1.15.0",
+    "source-map-support": "^0.5.9"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitReturns": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "allowJs": true,
+    "checkJs": true,
+    
+    // no need to actually build the project so these settings dont matter
+    "outDir": "out",
+    "module": "commonjs",
+    "target": "ES2018",
+    "lib": ["es2018"]
+  },
+  "include": ["src/**/*.ts", "src/functions/*/**/*.js"],
+  "exclude": ["cdk.out"]
+}
