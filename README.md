@@ -14,7 +14,7 @@ The API provides the same interface as DynDNS (dyn.com) so it *should* work as a
 npm install --production
 
 # configure
-cp ./src/config.template.js ./config.js
+cp ./src/config.example.js ./config.js
 nano ./config.js
 
 # deploy stack to AWS

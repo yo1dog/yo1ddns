@@ -21,7 +21,7 @@ export default async function readConfig(): Promise<{config?: IConfig; configErr
     config = require(configFilepath); // eslint-disable-line @typescript-eslint/no-require-imports
   } catch(err) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      return {configErrMsg: `Config does not exist. Copy /src/config.template.js to /config.js at: ${configFilepath}`};
+      return {configErrMsg: `Config does not exist. Copy /src/config.example.js to /config.js at: ${configFilepath}`};
     }
     throw err;
   }
