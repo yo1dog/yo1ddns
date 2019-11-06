@@ -28,7 +28,7 @@ module.exports = {
   apiDomainName: 'ddns.example.com',
   
   // *Optional* (Required if apiDomainName given) ARN of ACM Certificate
-  // to use for the API Gateway Domain Name. Must conver apiDomainName.
+  // to use for the API Gateway Domain Name. Must cover apiDomainName.
   // If you don't have one, create one. To see your list of certs use:
   // aws acm list-certificates
   apiDomainNameACMCertARN: 'arn:aws:acm:us-east-1:996577705533:certificate/asdf',
