@@ -16,6 +16,7 @@ rm -rf "$dir"
 mkdir -p "$dir"
 
 # create template
+(cd ..; cdk synth)
 outfilename="$dir/yo1ddns.template.json"
 node ./createStandalone.js "$ver" "$s3bucket" "$s3key"> "$outfilename"
 

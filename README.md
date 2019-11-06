@@ -8,7 +8,7 @@ The API provides the same interface as DynDNS (dyn.com) so it *should* work as a
 
 
 ## 1-Click Installation
-[Create AWS CloudFormation Stack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.amazonaws.com%2Fs3.yo1.dog%2Fcloudformation%2Fyo1ddns%2Fv1.0.0%2Fyo1ddns.template.json&stackName=yo1ddns&param_apiAuthPassword=CHANGME&param_apiAuthUsername=changeme&param_apiDomainName=ddns.example.com&param_apiDomainNameACMCertARN=&param_apiDomainNameRoute53ZoneId=&param_targetHostnameWhitelist=dynamicip.example.com&param_targetRoute53ZoneId=)
+[Create AWS CloudFormation Stack](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/quickcreate?templateUrl=https%3A%2F%2Fs3.amazonaws.com%2Fs3.yo1.dog%2Fcloudformation%2Fyo1ddns%2Fstable%2Fyo1ddns.template.json&stackName=yo1ddns&param_apiAuthPassword=CHANGME&param_apiAuthUsername=changeme&param_apiDomainName=ddns.example.com&param_apiDomainNameACMCertARN=&param_apiDomainNameRoute53ZoneId=&param_targetHostnameWhitelist=dynamicip.example.com&param_targetRoute53ZoneId=)
 
 ## Or Build and Deploy the CDK App
 
