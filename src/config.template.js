@@ -4,11 +4,13 @@ module.exports = {
   
   
   // Domain name of Route 53 Hosted Zone to update with new IP when
-  // requested.
+  // requested. If you don't have one, create one. To see your list
+  // of zones use:
+  // aws route53 list-hosted-zones
   targetRoute53ZoneName: 'example.com',
   
   // List of hostnames allowed to be set/updated. targetRoute53ZoneName
-  // must be TLD of all hostnames
+  // must be TLD of all hostnames.
   targetHostnameWhitelist: [
     'dynamicip.example.com'
   ],
@@ -25,8 +27,10 @@ module.exports = {
   // API Gateway Domain Name will be created for the API.
   apiDomainName: 'ddns.example.com',
   
-  // *Optional* (Required if APICustomDomain given) ARN of ACM Certificate
-  // to use for the API Gateway Domain Name.
+  // *Optional* (Required if apiDomainName given) ARN of ACM Certificate
+  // to use for the API Gateway Domain Name. Must conver apiDomainName.
+  // If you don't have one, create one. To see your list of certs use:
+  // aws acm list-certificates
   apiDomainNameACMCertARN: 'arn:aws:acm:us-east-1:996577705533:certificate/asdf',
   
   // *Optional* Domain name of Route 53 zone that should route to the API.
