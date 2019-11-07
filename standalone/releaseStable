@@ -9,4 +9,4 @@ ver="$(node -p "require('../package.json').version")"
 s3bucket="s3.yo1.dog"
 s3key="cloudformation/yo1ddns"
 
-aws s3 cp "s3://$s3bucket/${s3key}/v$ver" "s3://$s3bucket/${s3key}/stable" --recursive
+aws s3 cp "s3://$s3bucket/${s3key}/v$ver/yo1ddns.template.json" "s3://$s3bucket/${s3key}/stable/"
