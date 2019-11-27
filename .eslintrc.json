@@ -10,8 +10,7 @@
   "parserOptions": {
     "ecmaVersion": 2019,
     "sourceType": "module",
-    "project": "./tsconfig.json",
-    "createDefaultProgram": true // TODO: remove once issue is fixed: https://github.com/typescript-eslint/typescript-eslint/issues/864
+    "project": "./tsconfig.json"
   },
   "env": {
     "node": true,
