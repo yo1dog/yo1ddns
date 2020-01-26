@@ -2,6 +2,5 @@ node_modules
 /.cdk.staging
 /cdk.out
 /cdk.context.json
-/out
 /config.js
 /standalone/out

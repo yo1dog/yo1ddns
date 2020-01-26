@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* eslint-disable no-template-curly-in-string */
 const version           = process.argv[2];
 const lambdaS3Bucket    = process.argv[3];
@@ -5,7 +6,7 @@ const lambdaS3KeyPrefix = process.argv[4];
 
 const template = require('../cdk.out/yo1ddns.template.json');
 
-/** @type {{[key: string]: {logicalId: string; resource: any}} */
+/** @type {{[key: string]: {logicalId: string; resource: any}}} */
 const resourceMap = {};
 for (const [logicalId, resource] of Object.entries(template.Resources)) {
   resourceMap[resource.Metadata['aws:cdk:path']] = {

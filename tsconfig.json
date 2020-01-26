@@ -1,18 +1,20 @@
 {
   "compilerOptions": {
+    "alwaysStrict": true,
     "strict": true,
-    "noImplicitReturns": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "allowJs": true,
-    "checkJs": true,
+    "noImplicitAny": true,
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["ES2020"],
     
-    // no need to actually build the project so these settings dont matter
-    "outDir": "out",
-    "module": "commonjs",
-    "target": "ES2018",
-    "lib": ["es2018"]
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true
   },
-  "include": ["src/**/*.ts", "src/functions/*/**/*.js"],
-  "exclude": ["cdk.out"]
+  "exclude": [
+    "node_modules",
+    "cdk.out",
+    "standalone/out"
+  ]
 }
