@@ -27,7 +27,6 @@ cdk deploy # optional flag: --profile aws-profile-to-use
 ## Requirements
 
  - npm
- - npx (`npm i -g npx`)
  - cdk (`npm i -g aws-cdk`) or use `npx cdk`
 
 ## Development
